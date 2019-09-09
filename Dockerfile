@@ -7,5 +7,5 @@ FROM ${downloader_image}:${node_version} as download
 
 FROM ${linux_base}
 WORKDIR "/opt/node"
-COPY --from=download /opt/node/bin bin
+COPY --from=download /opt/node .
 ENV PATH=$PATH:/opt/node/bin
