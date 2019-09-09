@@ -1,10 +1,18 @@
 #!/bin/sh
 
+# local debug
+# DOCKER_TAG=$1
+
 # $DOCKER_TAG is in the format LINUX_BASE--NODE_VERSION
-LINUX_BASE=${DOCKER_TAG%%--*}
-NODE_VERSION=${DOCKER_TAG#*--}
+# split on -- on 2 variables
+DOCKER_TAG_0=${DOCKER_TAG%%--*}
+DOCKER_TAG_1=${DOCKER_TAG#*--}
+
+# replace underscore with /
+LINUX_BASE=$(echo $DOCKER_TAG_0 | sed -e "s/_/:/g")
+NODE_VERSION=$DOCKER_TAG_1
 echo DOCKER_TAG is $DOCKER_TAG
-echo LINUX_BASE is $LINUX_BASE
+echo LINUX_BASE is ${LINUX_BASE}
 echo NODE_VERSION is $NODE_VERSION
 
 docker build \
