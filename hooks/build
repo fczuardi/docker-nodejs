@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# $DOCKER_TAG is in the format LINUX_BASE--NODE_VERSION
+LINUX_BASE=${DOCKER_TAG%%--*}
+NODE_VERSION=${DOCKER_TAG#*--}
+echo DOCKER_TAG is $DOCKER_TAG
+echo LINUX_BASE is $LINUX_BASE
+echo NODE_VERSION is $NODE_VERSION
+
+docker build \
+  --build-arg linux_base=$LINUX_BASE \
+  --build-arg node_version=$NODE_VERSION \
+  -f $DOCKERFILE_PATH \
+  -t $IMAGE_NAME .
+
